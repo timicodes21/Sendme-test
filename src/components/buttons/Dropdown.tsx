@@ -5,7 +5,7 @@ import { produce } from "../../data/products";
 
 interface Props {
   text: string;
-  onClick?: () => void;
+  onClick: (produce: string) => void;
 }
 
 const Dropdown: React.FC<Props> = ({ onClick }) => {
@@ -23,7 +23,6 @@ const Dropdown: React.FC<Props> = ({ onClick }) => {
           fontWeight={400}
           cursor="pointer"
           width="100%"
-          onClick={onClick}
           style={{ border: "2px solid #F18479" }}
         >
           <Box
@@ -52,6 +51,7 @@ const Dropdown: React.FC<Props> = ({ onClick }) => {
                 onClick={() => {
                   setText(product);
                   setDropdown(false);
+                  onClick(product);
                 }}
                 className="dropdown-items"
               >

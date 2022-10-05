@@ -19,6 +19,7 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
   const [error, setError] = useState<boolean>(false);
   const [filteredProducts, setFilteredProducts] =
     useState<Product[]>(allProducts);
+  const [produce, setProduce] = useState<string>("Cow");
 
   // onChange handler for check button
   const handleCheck = (
@@ -92,7 +93,7 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
         <Box marginTop="32px">
           <Grid templateColumns={{ base: "30% 70%", md: "20% 80%" }} gap={4}>
             <GridItem>
-              <Dropdown text="COW" />
+              <Dropdown text="COW" onClick={(produce) => setProduce(produce)} />
             </GridItem>
             <GridItem>
               <Input
