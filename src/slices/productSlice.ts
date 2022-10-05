@@ -22,7 +22,7 @@ export const productSlice = createSlice({
       );
       state.selectedProducts = filteredProduct;
     },
-    clearproducts: (state, action: PayloadAction<Product>) => {
+    clearProducts: (state) => {
       state.selectedProducts = [];
     },
     calculateSubTotal: (state) => {
@@ -43,7 +43,7 @@ export const productSlice = createSlice({
   },
 });
 
-export const { addProduct, removeProduct, clearproducts, calculateSubTotal } =
+export const { addProduct, removeProduct, clearProducts, calculateSubTotal } =
   productSlice.actions;
 
 export default productSlice.reducer;

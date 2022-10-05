@@ -3,6 +3,7 @@ export interface Product {
   weight: string;
   price: number;
   id: number;
+  produce?: string;
 }
 
 export interface ProductState {

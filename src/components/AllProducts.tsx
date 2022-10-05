@@ -7,7 +7,11 @@ import { allProducts } from "../data/products";
 import { Product } from "../types/reduxState";
 import { formatToCurrency } from "../utils/formatter";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
-import { addProduct, removeProduct } from "../slices/productSlice";
+import {
+  addProduct,
+  clearProducts,
+  removeProduct,
+} from "../slices/productSlice";
 
 interface Props {
   navigate: () => void;
@@ -17,9 +21,12 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
   const dispatch = useAppDispatch();
   const { selectedProducts } = useAppSelector((state) => state.products);
   const [error, setError] = useState<boolean>(false);
-  const [filteredProducts, setFilteredProducts] =
-    useState<Product[]>(allProducts);
   const [produce, setProduce] = useState<string>("Cow");
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>(
+    allProducts.filter((product) => product.produce === produce)
+  );
+
+  console.log("produce", produce, filteredProducts);
 
   // onChange handler for check button
   const handleCheck = (
@@ -54,12 +61,24 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
   // search function
   const handleSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
     const searchTerm = e.target.value.trim().toLowerCase();
-    const newFilteredProducts = allProducts.filter(
-      (product) =>
-        product.name.toLocaleLowerCase().includes(searchTerm) ||
-        product.weight.toLocaleLowerCase().includes(searchTerm)
-    );
+    const newFilteredProducts = allProducts
+      .filter(
+        (product) =>
+          product.name.toLocaleLowerCase().includes(searchTerm) ||
+          product.weight.toLocaleLowerCase().includes(searchTerm)
+      )
+      .filter((product) => product.produce === produce);
     setFilteredProducts(newFilteredProducts);
+  };
+
+  // Function that filters the array based on the produce
+  const handleProduce = (produce: string) => {
+    setProduce(produce);
+    const filteredProducts = allProducts.filter(
+      (product) => product.produce === produce
+    );
+    setFilteredProducts(filteredProducts);
+    dispatch(clearProducts());
   };
 
   return (
@@ -93,7 +112,7 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
         <Box marginTop="32px">
           <Grid templateColumns={{ base: "30% 70%", md: "20% 80%" }} gap={4}>
             <GridItem>
-              <Dropdown text="COW" onClick={(produce) => setProduce(produce)} />
+              <Dropdown onClick={(produce) => handleProduce(produce)} />
             </GridItem>
             <GridItem>
               <Input

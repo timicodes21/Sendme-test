@@ -4,7 +4,6 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { produce } from "../../data/products";
 
 interface Props {
-  text: string;
   onClick: (produce: string) => void;
 }
 
