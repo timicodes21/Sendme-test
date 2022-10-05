@@ -26,3 +26,34 @@ a {
     background: black;
   }
 }
+
+.dropdown {
+  position: absolute;
+  background-color: #ffffff;
+  top: 20px;
+  left: 0px;
+  z-index: 100;
+  opacity: 0;
+  transform: scale(1, 0);
+  transition: 0.5s;
+  border-radius: 6px;
+}
+
+.dropdown.active {
+  opacity: 1;
+  transform: scale(1, 1);
+}
+
+.dropdown-items {
+  color: #7c7c7c;
+  font-size: 15px;
+  font-weight: 400;
+  padding: 8px 16px;
+  width: 5rem;
+  line-height: 19px;
+  cursor: pointer;
+}
+
+.dropdown-items:hover {
+  background-color: #f1f1f1;
+}

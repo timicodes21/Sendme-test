@@ -62,3 +62,5 @@ export const allProducts: Product[] = [
     id: 10,
   },
 ];
+
+export const produce: string[] = ["Cow", "Goat"];
