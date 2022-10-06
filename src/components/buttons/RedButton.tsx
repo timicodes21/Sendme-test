@@ -3,7 +3,7 @@ import { Button, ButtonGroup } from "@chakra-ui/react";
 
 interface Props {
   children: string;
-  onClick: () => void;
+  onClick?: () => void;
   type?: "button" | "submit" | "reset";
 }
 

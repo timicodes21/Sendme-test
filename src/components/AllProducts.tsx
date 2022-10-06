@@ -1,11 +1,10 @@
-import React, { Fragment, useState } from "react";
+import React, { useState } from "react";
 import { Text, Box, Flex, Spacer, Input } from "@chakra-ui/react";
 import RedButton from "./buttons/RedButton";
 import { Grid, GridItem, Checkbox } from "@chakra-ui/react";
 import Dropdown from "./buttons/Dropdown";
 import { allProducts } from "../data/products";
 import { Product } from "../types/reduxState";
-import { formatToCurrency } from "../utils/formatter";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import {
   addProduct,
@@ -13,6 +12,7 @@ import {
   removeProduct,
 } from "../slices/productSlice";
 import ProductList from "./lists/ProductList";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 interface Props {
   navigate: () => void;
@@ -29,6 +29,8 @@ const AllProducts: React.FC<Props> = ({ navigate, produce, setProduce }) => {
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(
     allProducts.filter((product) => product.produce === produce)
   );
+
+  const { register } = useForm();
 
   // Function that filters the array based on the produce
   const handleProduce = (produce: string) => {
@@ -56,7 +58,8 @@ const AllProducts: React.FC<Props> = ({ navigate, produce, setProduce }) => {
   };
 
   // Route to next page if user has selectd items
-  const gotoNextPage = () => {
+  const handleSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault();
     if (selectedProducts.length > 0) {
       setError(false);
       navigate();
@@ -81,57 +84,60 @@ const AllProducts: React.FC<Props> = ({ navigate, produce, setProduce }) => {
   return (
     <>
       <Box marginRight="20px">
-        <Flex alignItems="center">
-          <Text color="#092443" fontSize="20px" fontWeight={700}>
-            New Order
-          </Text>
-          <Spacer />
-          <RedButton onClick={gotoNextPage}>NEXT</RedButton>
-        </Flex>
-        <Box marginTop="30px">
-          <Text color="#CDCCCC" fontSize="18px" fontWeight={700}>
-            SELECT PRODUCTS
-          </Text>
-        </Box>
-        {error && (
-          <Box margin="10px 0px">
-            <Text
-              marginLeft="15px"
-              color="#FF1B03"
-              textAlign="center"
-              fontSize="12px"
-              fontWeight={700}
-            >
-              Please Select a Product
+        <form onSubmit={handleSubmit}>
+          <Flex alignItems="center">
+            <Text color="#092443" fontSize="20px" fontWeight={700}>
+              New Order
+            </Text>
+            <Spacer />
+            <RedButton type="submit">NEXT</RedButton>
+          </Flex>
+          <Box marginTop="30px">
+            <Text color="#CDCCCC" fontSize="18px" fontWeight={700}>
+              SELECT PRODUCTS
             </Text>
           </Box>
-        )}
-        <Box marginTop="32px">
-          <Grid templateColumns={{ base: "30% 70%", md: "20% 80%" }} gap={4}>
-            <GridItem>
-              <Dropdown
-                onClick={(produce) => handleProduce(produce)}
-                text={produce}
-              />
-            </GridItem>
-            <GridItem>
-              <Input
-                placeholder={`Search in ${produce}`}
-                style={{ border: "1px solid #CCCDD5" }}
-                onChange={handleSearch}
-              />
-            </GridItem>
-          </Grid>
-        </Box>
-        <Box marginTop="56px">
-          <ProductList
-            products={filteredProducts}
-            selectedProducts={selectedProducts}
-            handleCheck={handleCheck}
-            checkbox
-            marginBottom="42px"
-          />
-        </Box>
+
+          {error && (
+            <Box margin="10px 0px">
+              <Text
+                marginLeft="15px"
+                color="#FF1B03"
+                textAlign="center"
+                fontSize="12px"
+                fontWeight={700}
+              >
+                Please Select a Product
+              </Text>
+            </Box>
+          )}
+          <Box marginTop="32px">
+            <Grid templateColumns={{ base: "30% 70%", md: "20% 80%" }} gap={4}>
+              <GridItem>
+                <Dropdown
+                  onClick={(produce) => handleProduce(produce)}
+                  text={produce}
+                />
+              </GridItem>
+              <GridItem>
+                <Input
+                  placeholder={`Search in ${produce}`}
+                  style={{ border: "1px solid #CCCDD5" }}
+                  onChange={handleSearch}
+                />
+              </GridItem>
+            </Grid>
+          </Box>
+          <Box marginTop="56px">
+            <ProductList
+              products={filteredProducts}
+              selectedProducts={selectedProducts}
+              handleCheck={handleCheck}
+              checkbox
+              marginBottom="42px"
+            />
+          </Box>
+        </form>
       </Box>
     </>
   );
