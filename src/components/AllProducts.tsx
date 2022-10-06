@@ -12,6 +12,7 @@ import {
   clearProducts,
   removeProduct,
 } from "../slices/productSlice";
+import ProductList from "./lists/ProductList";
 
 interface Props {
   navigate: () => void;
@@ -124,34 +125,13 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
           </Grid>
         </Box>
         <Box marginTop="56px">
-          {filteredProducts.map((product: Product) => (
-            <Fragment key={product.id}>
-              <Flex alignItems="center" marginBottom="42px">
-                <Flex>
-                  <Checkbox
-                    colorScheme="red"
-                    color="#FF402C"
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                      handleCheck(e, product)
-                    }
-                    defaultChecked={selectedProducts.includes(product)}
-                  ></Checkbox>
-                  <Text
-                    marginLeft="15px"
-                    color="#092443"
-                    fontSize="15px"
-                    fontWeight={600}
-                  >
-                    {product.name} {product.weight}
-                  </Text>
-                </Flex>
-                <Spacer />
-                <Text color="#777E96" fontSize="15px" fontWeight={400}>
-                  # {formatToCurrency(product.price)}
-                </Text>
-              </Flex>
-            </Fragment>
-          ))}
+          <ProductList
+            products={filteredProducts}
+            selectedProducts={selectedProducts}
+            handleCheck={handleCheck}
+            checkbox
+            marginBottom="42px"
+          />
         </Box>
       </Box>
     </>
