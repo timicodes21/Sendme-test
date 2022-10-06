@@ -5,10 +5,10 @@ import { produce } from "../../data/products";
 
 interface Props {
   onClick: (produce: string) => void;
+  text: string;
 }
 
-const Dropdown: React.FC<Props> = ({ onClick }) => {
-  const [text, setText] = useState<string>("Cow");
+const Dropdown: React.FC<Props> = ({ onClick, text }) => {
   const [dropdown, setDropdown] = useState<boolean>(false);
   return (
     <>
@@ -48,7 +48,6 @@ const Dropdown: React.FC<Props> = ({ onClick }) => {
             <Fragment key={index}>
               <Text
                 onClick={() => {
-                  setText(product);
                   setDropdown(false);
                   onClick(product);
                 }}

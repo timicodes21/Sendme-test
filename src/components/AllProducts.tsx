@@ -16,15 +16,16 @@ import ProductList from "./lists/ProductList";
 
 interface Props {
   navigate: () => void;
+  produce: string;
+  setProduce: React.Dispatch<React.SetStateAction<string>>;
 }
 
 // Initial page
 
-const AllProducts: React.FC<Props> = ({ navigate }) => {
+const AllProducts: React.FC<Props> = ({ navigate, produce, setProduce }) => {
   const dispatch = useAppDispatch();
   const { selectedProducts } = useAppSelector((state) => state.products);
   const [error, setError] = useState<boolean>(false);
-  const [produce, setProduce] = useState<string>("Cow");
   const [filteredProducts, setFilteredProducts] = useState<Product[]>(
     allProducts.filter((product) => product.produce === produce)
   );
@@ -48,19 +49,8 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
     product: Product
   ) => {
     if (e.target.checked) {
-      const productExists = selectedProducts.find(
-        (product) => product.id === product.id
-      );
-
       dispatch(addProduct(product));
     } else {
-      // Check if product is present in the array first
-      const productExists = selectedProducts.find(
-        (product) => product.id === product.id
-      );
-      if (productExists) {
-        dispatch(removeProduct(product));
-      }
       dispatch(removeProduct(product));
     }
   };
@@ -119,7 +109,10 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
         <Box marginTop="32px">
           <Grid templateColumns={{ base: "30% 70%", md: "20% 80%" }} gap={4}>
             <GridItem>
-              <Dropdown onClick={(produce) => handleProduce(produce)} />
+              <Dropdown
+                onClick={(produce) => handleProduce(produce)}
+                text={produce}
+              />
             </GridItem>
             <GridItem>
               <Input

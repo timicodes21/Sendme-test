@@ -15,15 +15,27 @@ export const productSlice = createSlice({
     // Adds the checked product to the selected products array
     addProduct: (state, action: PayloadAction<Product>) => {
       const { payload } = action;
-      state.selectedProducts = [...state.selectedProducts, payload];
+      // check if product exists
+      const productExists =
+        state.selectedProducts.filter((product) => product.id === payload.id)
+          .length > 0;
+      if (!productExists) {
+        state.selectedProducts = [...state.selectedProducts, payload];
+      }
     },
     removeProduct: (state, action: PayloadAction<Product>) => {
       // Revmoves the unchecked product from the selected products array
       const { payload } = action;
-      const filteredProduct = state.selectedProducts.filter(
-        (product: Product) => product.id !== payload.id
-      );
-      state.selectedProducts = filteredProduct;
+      // check if product exists
+      const productExists =
+        state.selectedProducts.filter((product) => product.id === payload.id)
+          .length > 0;
+      if (productExists) {
+        const filteredProduct = state.selectedProducts.filter(
+          (product: Product) => product.id !== payload.id
+        );
+        state.selectedProducts = filteredProduct;
+      }
     },
     clearProducts: (state) => {
       // Clear all the selected products
