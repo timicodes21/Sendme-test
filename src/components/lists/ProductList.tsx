@@ -2,7 +2,6 @@ import React, { Fragment } from "react";
 import { Product } from "../../types/reduxState";
 import { Text, Box, Flex, Spacer, Checkbox } from "@chakra-ui/react";
 import { formatToCurrency } from "../../utils/formatter";
-import { useForm, SubmitHandler } from "react-hook-form";
 
 // Component to show the list of all products and selected products
 
@@ -21,7 +20,6 @@ const ProductList: React.FC<Props> = ({
   checkbox,
   marginBottom,
 }) => {
-  const { register } = useForm();
   return (
     <>
       {products.map((product: Product) => (

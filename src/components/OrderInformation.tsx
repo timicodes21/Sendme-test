@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Text, Box, Flex, Spacer } from "@chakra-ui/react";
+import React, { useEffect } from "react";
+import { Text, Box } from "@chakra-ui/react";
 import { BsArrowLeft } from "react-icons/bs";
-import { formatToCurrency } from "../utils/formatter";
 import SubmitButton from "./buttons/SubmitButton";
 import { useAppDispatch, useAppSelector } from "../app/hooks";
 import { calculateSubTotal } from "../slices/productSlice";

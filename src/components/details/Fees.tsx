@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Text, Flex, Spacer } from "@chakra-ui/react";
+import { Text, Flex, Spacer } from "@chakra-ui/react";
 import { formatToCurrency } from "../../utils/formatter";
 
 interface Props {

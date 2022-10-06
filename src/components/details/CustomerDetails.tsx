@@ -1,10 +1,12 @@
 import React from "react";
-import { Text, Box, Flex, Spacer } from "@chakra-ui/react";
+import { Text, Box } from "@chakra-ui/react";
 
 interface Props {
   phone: string;
   address: string;
 }
+
+// Phone no and customer address
 
 const CustomerDetails: React.FC<Props> = ({ phone, address }) => {
   return (
