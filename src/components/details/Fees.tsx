@@ -6,6 +6,8 @@ interface Props {
   subTotal: number;
 }
 
+// Order details (subtotal and total)
+
 const Fees: React.FC<Props> = ({ subTotal }) => {
   return (
     <>

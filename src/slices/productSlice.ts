@@ -7,15 +7,18 @@ const initialState: SelectedProductState = {
   subTotal: 0,
 };
 
+// Redux Slice for selected products
 export const productSlice = createSlice({
   name: "authSlice",
   initialState,
   reducers: {
+    // Adds the checked product to the selected products array
     addProduct: (state, action: PayloadAction<Product>) => {
       const { payload } = action;
       state.selectedProducts = [...state.selectedProducts, payload];
     },
     removeProduct: (state, action: PayloadAction<Product>) => {
+      // Revmoves the unchecked product from the selected products array
       const { payload } = action;
       const filteredProduct = state.selectedProducts.filter(
         (product: Product) => product.id !== payload.id
@@ -23,6 +26,7 @@ export const productSlice = createSlice({
       state.selectedProducts = filteredProduct;
     },
     clearProducts: (state) => {
+      // Clear all the selected products
       state.selectedProducts = [];
     },
     calculateSubTotal: (state) => {

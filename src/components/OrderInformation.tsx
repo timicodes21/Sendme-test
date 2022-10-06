@@ -14,13 +14,15 @@ interface Props {
   goBack: () => void;
 }
 
+// Order details page
+
 const OrderInformation: React.FC<Props> = ({ goBack }) => {
   const dispatch = useAppDispatch();
   const { selectedProducts, subTotal } = useAppSelector(
     (state) => state.products
   );
 
-  // Calculating the subtotal
+  // Calculating the subtotal of order items
   useEffect(() => {
     dispatch(calculateSubTotal());
   }, []);

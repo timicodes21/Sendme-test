@@ -18,6 +18,8 @@ interface Props {
   navigate: () => void;
 }
 
+// Initial page
+
 const AllProducts: React.FC<Props> = ({ navigate }) => {
   const dispatch = useAppDispatch();
   const { selectedProducts } = useAppSelector((state) => state.products);
@@ -27,7 +29,18 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
     allProducts.filter((product) => product.produce === produce)
   );
 
-  console.log("produce", produce, filteredProducts);
+  // Function that filters the array based on the produce
+  const handleProduce = (produce: string) => {
+    setProduce(produce);
+    const filteredProducts = allProducts.filter(
+      (product) => product.produce === produce
+    );
+    setFilteredProducts(filteredProducts);
+    // Clear the selected products array if products are present
+    if (selectedProducts.length > 0) {
+      dispatch(clearProducts());
+    }
+  };
 
   // onChange handler for check button
   const handleCheck = (
@@ -35,7 +48,9 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
     product: Product
   ) => {
     if (e.target.checked) {
-      // check if product exists
+      const productExists = selectedProducts.find(
+        (product) => product.id === product.id
+      );
 
       dispatch(addProduct(product));
     } else {
@@ -50,6 +65,7 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
     }
   };
 
+  // Route to next page if user has selectd items
   const gotoNextPage = () => {
     if (selectedProducts.length > 0) {
       setError(false);
@@ -70,16 +86,6 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
       )
       .filter((product) => product.produce === produce);
     setFilteredProducts(newFilteredProducts);
-  };
-
-  // Function that filters the array based on the produce
-  const handleProduce = (produce: string) => {
-    setProduce(produce);
-    const filteredProducts = allProducts.filter(
-      (product) => product.produce === produce
-    );
-    setFilteredProducts(filteredProducts);
-    dispatch(clearProducts());
   };
 
   return (

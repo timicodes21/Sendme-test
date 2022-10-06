@@ -141,6 +141,27 @@ export const allProducts: Product[] = [
     id: 15,
     produce: "Goat",
   },
+  {
+    name: "Token Gizzard",
+    weight: "1Kg",
+    price: 1200,
+    id: 21,
+    produce: "Chicken",
+  },
+  {
+    name: "Token Chicken",
+    weight: "1Kg",
+    price: 1200,
+    id: 22,
+    produce: "Chicken",
+  },
+  {
+    name: "Token Wings",
+    weight: "1Kg",
+    price: 1200,
+    id: 23,
+    produce: "Chicken",
+  },
 ];
 
-export const produce: string[] = ["Cow", "Goat"];
+export const produce: string[] = ["Cow", "Goat", "Chicken"];

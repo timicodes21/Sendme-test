@@ -3,6 +3,8 @@ import { Product } from "../../types/reduxState";
 import { Text, Box, Flex, Spacer, Checkbox } from "@chakra-ui/react";
 import { formatToCurrency } from "../../utils/formatter";
 
+// Component to show the list of all products and selected products
+
 interface Props {
   products: Product[];
   handleCheck: (a: React.ChangeEvent<HTMLInputElement>, b: Product) => void;
