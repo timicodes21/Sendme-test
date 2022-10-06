@@ -30,7 +30,7 @@ const AllProducts: React.FC<Props> = ({ navigate, produce, setProduce }) => {
     allProducts.filter((product) => product.produce === produce)
   );
 
-  const { register } = useForm();
+  const { register, handleSubmit } = useForm();
 
   // Function that filters the array based on the produce
   const handleProduce = (produce: string) => {
@@ -58,8 +58,8 @@ const AllProducts: React.FC<Props> = ({ navigate, produce, setProduce }) => {
   };
 
   // Route to next page if user has selectd items
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
+  const onSubmit = () => {
+    // e.preventDefault();
     if (selectedProducts.length > 0) {
       setError(false);
       navigate();
@@ -84,7 +84,7 @@ const AllProducts: React.FC<Props> = ({ navigate, produce, setProduce }) => {
   return (
     <>
       <Box marginRight="20px">
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit(onSubmit)}>
           <Flex alignItems="center">
             <Text color="#092443" fontSize="20px" fontWeight={700}>
               New Order
