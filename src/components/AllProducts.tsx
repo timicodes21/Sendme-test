@@ -123,7 +123,7 @@ const AllProducts: React.FC<Props> = ({ navigate }) => {
             </GridItem>
             <GridItem>
               <Input
-                placeholder="Search"
+                placeholder={`Search in ${produce}`}
                 style={{ border: "1px solid #CCCDD5" }}
                 onChange={handleSearch}
               />
